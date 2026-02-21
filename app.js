@@ -11,6 +11,9 @@ function saveWorkouts(workouts) {
 
 function renderWorkouts() {
   const workouts = getWorkouts();
+  workouts.sort(function(a, b) {
+    return new Date(b.date) - new Date(a.date);
+  });
   const tbody = document.querySelector('tbody');
   tbody.innerHTML = '';
 
