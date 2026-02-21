@@ -1,2 +1,2 @@
 # workout-tracker
-A lightweight way to stay active
+A lightweight way to stay active.
