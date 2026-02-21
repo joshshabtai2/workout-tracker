@@ -11,6 +11,23 @@
             </header>
 
     <main>
+        <section class="entry-form">
+            <h2>Log a Workout</h2>
+            <form id="workout-form">
+                <div-class="form-row">
+                    <input type="date" id="date" required>
+                    <select id="workout-type">
+                       <option value="A">Workout A</option>
+                       <option value="B">Workout B</option> 
+                    </select>
+                    <input type="text" id="exercise" placeholder="Exercise" required>
+                    <input type="number" id="sets" placeholder="Sets" min="1" required>
+                    <input type="number" id="reps" placeholder="Reps" min="1" required>
+                    <input type="number" id="weight" placeholder="Weight (lbs)" min="0" required>
+                </div>
+                <button type="submit">Add Workout</button>
+            </form>
+        </section>
         <section class="log">
             <h2>Workout Log</h2>
             <table>
