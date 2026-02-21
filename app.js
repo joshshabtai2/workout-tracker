@@ -25,7 +25,7 @@ async function renderWorkouts() {
       <td>${workout.sets}</td>
       <td>${workout.reps}</td>
       <td>${workout.weight}</td>
-      <td><button class="delete-btn" data-index="${index}">Delete</button></td>
+      <td><button class="delete-btn" data-index="${workout.id}">Delete</button></td>
     `;
     tbody.appendChild(row);
   });
