@@ -1,19 +1,18 @@
 const form = document.getElementById('workout-form');
+const API = 'http://127.0.0.1:5000';
 
-function getWorkouts() {
-  const stored = localStorage.getItem('workouts');
-  return stored ? JSON.parse(stored) : [];
+async function getWorkouts() {
+  const response = await fetch(`${API}/workouts`);
+  const workouts = await response.json();
+  return workouts;
 }
 
-function saveWorkouts(workouts) {
-  localStorage.setItem('workouts', JSON.stringify(workouts));
-}
-
-function renderWorkouts() {
-  const workouts = getWorkouts();
+async function renderWorkouts() {
+  const workouts = await getWorkouts();
   workouts.sort(function(a, b) {
     return new Date(b.date) - new Date(a.date);
   });
+
   const tbody = document.querySelector('tbody');
   tbody.innerHTML = '';
 
@@ -32,9 +31,8 @@ function renderWorkouts() {
   });
 }
 
-form.addEventListener('submit', function(event) {
+form.addEventListener('submit', async function(event) {
   event.preventDefault();
-  console.log('form submitted');
 
   const workout = {
     date: document.getElementById('date').value,
@@ -45,19 +43,22 @@ form.addEventListener('submit', function(event) {
     weight: document.getElementById('weight').value
   };
 
-  const workouts = getWorkouts();
-  workouts.push(workout);
-  saveWorkouts(workouts);
+  await fetch(`${API}/workouts`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(workout)
+  });
+
   renderWorkouts();
   form.reset();
 });
 
-document.querySelector('tbody').addEventListener('click', function(event) {
+document.querySelector('tbody').addEventListener('click', async function(event) {
   if (event.target.classList.contains('delete-btn')) {
     const index = event.target.getAttribute('data-index');
-    const workouts = getWorkouts();
-    workouts.splice(index, 1);
-    saveWorkouts(workouts);
+    await fetch(`${API}/workouts/${index}`, {
+      method: 'DELETE'
+    });
     renderWorkouts();
   }
 });
