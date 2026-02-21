@@ -5,4 +5,4 @@
     "deploy": {
         "startCommand": "gunicorn server:app"
     }
-]
+}
